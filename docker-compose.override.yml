@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  composer:
+    volumes:
+      - ./composer.json:/app/composer.json
+      - ./composer.lock:/app/composer.lock
+      - vendor:/app/vendor
+      - web:/app/web
+
+volumes:
+  vendor:
+  web:

@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  composer:
+    build:
+      context: .
+      dockerfile: Dockerfile.composer
+      args:
+        composer_dev_arg: ${COMPOSER_DEV_ARG}
+    image: elifesciences/journal_cms_composer:${IMAGE_TAG}
+    command: /bin/bash
+  app:
+    build:
+      context: .
+      args:
+        image_tag: ${IMAGE_TAG}
+        php_version: ${PHP_VERSION}
+    image: elifesciences/journal_cms:${IMAGE_TAG}
+    depends_on:
+      - composer
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.web
+      args:
+        image_tag: ${IMAGE_TAG}
+    image: elifesciences/journal_cms_web:${IMAGE_TAG}
+    ports:
+      - '${JOURNAL_CMS_PORT}:80'
+    depends_on:
+      - app
