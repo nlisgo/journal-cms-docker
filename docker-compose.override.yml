@@ -7,7 +7,11 @@ services:
       - ./composer.lock:/app/composer.lock
       - vendor:/app/vendor
       - web:/app/web
+  db:
+    volumes:
+      - db-data:/var/lib/mysql
 
 volumes:
+  db-data:
   vendor:
   web:

@@ -9,6 +9,13 @@ services:
         composer_dev_arg: ${COMPOSER_DEV_ARG}
     image: elifesciences/journal_cms_composer:${IMAGE_TAG}
     command: /bin/bash
+  db:
+    image: mysql:5.7.23
+    environment:
+      MYSQL_ROOT_PASSWORD: journal_cms
+      MYSQL_DATABASE: journal_cms
+    volumes:
+      - data/mysql:/var/lib/mysql
   app:
     build:
       context: .
@@ -18,6 +25,7 @@ services:
     image: elifesciences/journal_cms:${IMAGE_TAG}
     depends_on:
       - composer
+      - db
   web:
     build:
       context: .
