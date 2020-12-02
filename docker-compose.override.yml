@@ -10,6 +10,10 @@ services:
   db:
     volumes:
       - db-data:/var/lib/mysql
+  app:
+    volumes:
+      - ./:/srv/journal-cms
+      - vendor:/srv/journal-cms/vendor
 
 volumes:
   db-data:
